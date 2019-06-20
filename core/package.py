@@ -2,13 +2,7 @@ import shutil
 import os
 import tarfile
 import core
-import enum
 import toml
-
-
-class Kind(enum.Enum):
-    EFFECTIVE = 'effective'
-    VIRTUAL = 'virtual'
 
 
 class Package:
