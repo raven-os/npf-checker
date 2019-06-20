@@ -10,6 +10,8 @@ def main():
     for f in args.npf:
         pkg = core.package.Package(f)
         pkg.unwrap()
+        pkg.check()
+        pkg.wrap()
 
 
 if __name__ == '__main__':
