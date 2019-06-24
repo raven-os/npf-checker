@@ -27,20 +27,7 @@ def parse_args():
         ),
         help="Cache directory used to unpack and check the NPF. Default: cache/",
     )
-    _parser.add_argument(
-        '-o',
-        '--output',
-        default=None,
-        help="Output NPF file, by default it replaces the given one",
-    )
-    _parser.add_argument(
-        '--backup',
-        default=None,
-        help="If no -o/--output is given, this creates a backup, default is {npf}.bak",
-    )
     _args = _parser.parse_args()
-    _args.output = _args.output or _args.npf
-    _args.backup = _args.backup or f"{_args.npf}.bak"
 
 
 def get_args():
