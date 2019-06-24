@@ -2,6 +2,7 @@
 
 import core.args
 import core.package
+import core.log as log
 
 
 def main():
@@ -9,8 +10,11 @@ def main():
     args = core.args.get_args()
     for f in args.npf:
         pkg = core.package.Package(f)
+        log.s(f"Unwrapping {f}")
         pkg.unwrap()
+        log.s(f"Checking {f}")
         pkg.check()
+        log.s(f"Wrapping {f}")
         pkg.wrap()
 
 
