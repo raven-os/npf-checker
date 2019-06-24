@@ -1,8 +1,9 @@
 import shutil
 import os
 import tarfile
-import core
 import toml
+import datetime
+import core
 
 
 class Package:
@@ -30,14 +31,15 @@ class Package:
         print('TODO: Package.check()')
 
     def wrap(self):
-        self.create_manifest_toml()
+        self.update_manifest_toml_wrap_date()
         if self.is_effective:
             self.create_data_tar()
         self.create_nest_file()
 
-    def create_manifest_toml(self):
-        print('TODO: Package.create_manifest_toml()')
-        pass
+    def update_manifest_toml_wrap_date(self):
+        self.manifest['wrap_date'] = datetime.datetime.utcnow().replace(microsecond=0).isoformat() + 'Z'
+        with open(self.manifest_path, 'w') as filename:
+            toml.dump(self.manifest, filename)
 
     def create_data_tar(self):
         with core.pushd(self.cache):
