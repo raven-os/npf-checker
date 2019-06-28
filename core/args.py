@@ -27,6 +27,11 @@ def parse_args():
         ),
         help="Cache directory used to unpack and check the NPF. Default: cache/",
     )
+    _parser.add_argument(
+        '--action',
+        choices=['edit', 'fix', 'diff'],
+        default='edit',
+    )
     _args = _parser.parse_args()
 
 
