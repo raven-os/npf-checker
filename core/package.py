@@ -6,6 +6,7 @@ import datetime
 import termcolor
 import core
 import core.log as log
+import core.check
 
 
 class Package:
@@ -30,7 +31,7 @@ class Package:
             os.remove(data)
 
     def check(self):
-        print('TODO: Package.check()')
+        core.check.check_package(self)
 
     def wrap(self):
         self.update_manifest_toml_wrap_date()

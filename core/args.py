@@ -32,6 +32,11 @@ def parse_args():
         choices=['edit', 'fix', 'diff'],
         default='edit',
     )
+    _parser.add_argument(
+        '--visual',
+        action='store_true',
+        help="Try to use more visual tools (only makes sense with --action=edit, which is the default)"
+    )
     _args = _parser.parse_args()
 
 
