@@ -1,2 +1,5 @@
+import core.checks.executable as exe
+
+
 def check_package(package):
-    print('TODO: call checks')
+    exe.ExecCheck(package).run()
