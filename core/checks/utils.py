@@ -15,7 +15,14 @@ class Answer(enum.Enum):
 
 def ask_yne(question, default=Answer.YES):
     while True:
-        answer = log.q(question + '[Y/n/e] ').lower()
+        s = ""
+        if default == Answer.YES:
+            s = 'Y/n/e'
+        elif default == Answer.NO:
+            s = 'y/N/e'
+        elif default == Answer.EDIT:
+            s = 'y/n/E'
+        answer = log.q(f"{question}[{s}] ").lower()
         if answer == '':
             return default
         elif answer in ['y', 'yes', 'ye']:
