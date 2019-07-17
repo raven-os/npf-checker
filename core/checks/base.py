@@ -1,4 +1,7 @@
+import os
+import toml
 import enum
+import datetime
 import core
 import core.args
 import core.log as log
@@ -61,3 +64,18 @@ class Check():
 
     def edit(self, item):
         raise NotImplementedError
+
+
+class CheckWithManifest(Check):
+    def __init__(self, items):
+        super.__init__(items)
+        self.manifest_path = os.path.join(core.args.get_args().cache_dir, 'manifest.toml')
+        self.manifest = toml.load(self.manifest_path)
+
+    def edit(self):
+        utils.open_editor(self.manifest_path)
+        self.manifest = toml.load(self.manifest_path)
+
+    def write_manifest(self):
+        with open(self.manifest_path, 'w') as filename:
+            toml.dump(self.manifest, filename)
