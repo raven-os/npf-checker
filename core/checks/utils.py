@@ -13,7 +13,7 @@ class Answer(enum.Enum):
     NONE = enum.auto()
 
 
-def ask_yne(question, default=True):
+def ask_yne(question, default=Answer.YES):
     while True:
         answer = log.q(question + '[Y/n/e] ').lower()
         if answer == '':
