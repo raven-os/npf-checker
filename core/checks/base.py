@@ -72,15 +72,11 @@ class CheckWithManifest(Check):
     def __init__(self, pkg, items):
         super().__init__(items)
         self.pkg = pkg
-        self.manifest_path = pkg.manifest_path
-        self.manifest = pkg.manifest
 
-    def edit(self):
-        utils.open_editor(self.manifest_path)
-        self.manifest = toml.load(self.manifest_path)
+    def edit(self, item):
+        utils.open_editor(self.pkg.manifest_path)
+        self.pkg.manifest = toml.load(self.pkg.manifest_path)
 
-    def write_manifest(self):
-        with open(self.manifest_path, 'w') as filename:
-            toml.dump(self.manifest, filename)
-            self.pkg.manifest = self.manifest
-
+    def write_pkg_manifest(self):
+        with open(self.pkg.manifest_path, 'w') as filename:
+            toml.dump(self.pkg.manifest, filename)

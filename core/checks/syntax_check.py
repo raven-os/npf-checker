@@ -5,7 +5,7 @@ import core.checks.base as base
 class DescriptionCheck(base.CheckWithManifest):
     def __init__(self, pkg):
         super().__init__(pkg, None)  # items is provided on the next line
-        self.items = [self.manifest['metadata']['description']]
+        self.items = [pkg.manifest['metadata']['description']]
         self.capital = False
         self.full_stop = False
 
@@ -29,8 +29,8 @@ class DescriptionCheck(base.CheckWithManifest):
             if not self.capital:
                 description = description[0].upper() + description[1:]
                 log.i("First letter has been converted to uppercase")
-            self.manifest['metadata']['description'] = description
-            self.write_manifest()
+            self.pkg.manifest['metadata']['description'] = description
+            self.write_pkg_manifest()
 
     def diff(self, description):
         if not self.capital:
