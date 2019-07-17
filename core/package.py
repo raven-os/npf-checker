@@ -54,7 +54,7 @@ class Package:
             with log.push():
                 for root, _, filenames in os.walk('.'):
                     for name in filenames:
-                        log.s(os.path.join(root, name))
+                        log.s(_colored_path(os.path.join(root, name)))
                         files_count += 1
             log.s(f"(That's {files_count} files.)")
             log.s(f"Creating data.tar.gz")

@@ -33,22 +33,24 @@ class Check():
         with log.push(), core.pushd(core.args.get_args().cache_dir):
             for item in self.items:
                 if not self.validate(item):
-                    self.show(item)
-                    if Check.global_state is Type.FIX:
-                        self.fix(item)
-                    elif Check.global_state is Type.DIFF:
-                        self.diff(item)
-                    elif Check.global_state is Type.EDIT:
-                        log.i("The automatic changes would be as follows")
-                        if self.diff(item) is not False:
-                            answer = utils.ask_yne("Accept those changes? ")
-                            if answer is utils.Answer.YES:
-                                self.fix(item)
-                            elif answer == utils.Answer.EDIT:
-                                self.edit(item)
-                        else:
-                            if utils.ask_yn("Edit manually? "):
-                                self.edit(item)
+                    with log.push():
+                        self.show(item)
+                        if Check.global_state is Type.FIX:
+                            self.fix(item)
+                        elif Check.global_state is Type.DIFF:
+                            self.diff(item)
+                        elif Check.global_state is Type.EDIT:
+                            log.i("The automatic changes would be as follows")
+                            with log.push():
+                                if self.diff(item) is not False:
+                                    answer = utils.ask_yne("Accept those changes? ")
+                                    if answer is utils.Answer.YES:
+                                        self.fix(item)
+                                    elif answer == utils.Answer.EDIT:
+                                        self.edit(item)
+                                else:
+                                    if utils.ask_yn("Edit manually? "):
+                                        self.edit(item)
 
     def validate(self, item):
         raise NotImplementedError
