@@ -31,7 +31,7 @@ class Package:
             os.remove(data)
 
     def check(self):
-        core.check.check_package(self)
+        core.check.check_package()
 
     def wrap(self):
         self.update_manifest_toml_wrap_date()

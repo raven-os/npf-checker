@@ -15,7 +15,6 @@ def parse_args():
     )
     _parser.add_argument(
         'npf',
-        nargs='+',
     )
     _parser.add_argument(
         '-c',

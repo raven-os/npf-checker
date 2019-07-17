@@ -6,9 +6,8 @@ import core.checks.utils as utils
 
 
 class FilesExecCheck(base.Check):
-    def __init__(self, pkg, files):
+    def __init__(self, files):
         super().__init__(files)
-        self.pkg = pkg
 
     def validate(self, item):
         log.i(f"Checking {item}")
@@ -30,10 +29,7 @@ class FilesExecCheck(base.Check):
 
 
 class ExecCheck():
-    def __init__(self, pkg):
-        self.pkg = pkg
-
     def run(self):
         log.s(f"Checking files execute permission")
-        FilesExecCheck(self.pkg, utils.find_files('./usr/{,s}bin/**/*')).run()
-        FilesExecCheck(self.pkg, utils.find_files('./usr/lib{32,64}/**/*.so')).run()
+        FilesExecCheck(utils.find_files('./usr/{,s}bin/**/*')).run()
+        FilesExecCheck(utils.find_files('./usr/lib{32,64}/**/*.so')).run()
