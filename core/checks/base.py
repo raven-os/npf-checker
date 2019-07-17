@@ -69,10 +69,11 @@ class Check():
 
 
 class CheckWithManifest(Check):
-    def __init__(self, items):
-        super.__init__(items)
-        self.manifest_path = os.path.join(core.args.get_args().cache_dir, 'manifest.toml')
-        self.manifest = toml.load(self.manifest_path)
+    def __init__(self, pkg, items):
+        super().__init__(items)
+        self.pkg = pkg
+        self.manifest_path = pkg.manifest_path
+        self.manifest = pkg.manifest
 
     def edit(self):
         utils.open_editor(self.manifest_path)
@@ -81,3 +82,5 @@ class CheckWithManifest(Check):
     def write_manifest(self):
         with open(self.manifest_path, 'w') as filename:
             toml.dump(self.manifest, filename)
+            self.pkg.manifest = self.manifest
+
