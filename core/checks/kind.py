@@ -1,11 +1,10 @@
 import os
-import core
 import core.log as log
 import core.checks.base as base
 import core.checks.utils as utils
 
 
-class NatureCheck(base.CheckWithManifest):
+class KindCheck(base.CheckWithManifest):
     def __init__(self, pkg):
         super().__init__(pkg, [None])
         log.s("Checking package kind")
