@@ -31,20 +31,28 @@ class KindCheck(base.CheckWithManifest):
 
     def edit(self, _):
         if self.pkg.is_effective:
-            ans = log.q("Would you like to edit the manifest.toml (1) "
-                        "or to add files to the package (2)? ")
-            if ans == "1":
+            ans = self._ask_1or2("Would you like to edit the manifest.toml (1) "
+                                  "or to add files to the package (2)? ")
+            if ans == 1:
                 super().edit(_)
-            elif ans == "2":
+            elif ans == 2:
                 utils.open_shell(self.pkg.cache)
-            else:
-                log.w("Only recognized answers are 1 and 2")
         else:
-            ans = log.q("Would you like to edit the manifest.toml (1) "
-                        "or to remove the files from the package? (2) ")
-            if ans == "1":
+
+            ans = self._ask_1or2("Would you like to edit the manifest.toml (1) "
+                                 "or to remove the files from the package? (2) ")
+            if ans == 1:
                 super().edit(_)
-            elif ans == "2":
-                pass  # The rewrap at the end will ignore the files if the kind is virtual
+            # elif ans == 2:
+            #     pass  # The rewrap at the end will ignore the files if the kind is virtual
+
+    @staticmethod
+    def _ask_1or2(question):
+        while True:
+            ans = log.q(question)
+            if ans == '1':
+                return 1
+            elif ans == '2':
+                return 2
             else:
                 log.w("Only recognized answers are 1 and 2")
