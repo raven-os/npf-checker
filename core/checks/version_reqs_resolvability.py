@@ -60,4 +60,4 @@ class VersionReqsResolvabilityCheck(base.CheckWithManifest):
             del self.pkg.manifest['dependencies'][item[0]]
         elif self.version_error:
             self.pkg.manifest['dependencies'][item[0]] = self.highest_version
-
+        self.write_pkg_manifest()
