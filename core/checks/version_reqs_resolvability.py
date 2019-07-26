@@ -12,7 +12,7 @@ class VersionReqsResolvabilityCheck(base.CheckWithManifest):
     def __init__(self, pkg):
         super().__init__(pkg, list(pkg.manifest['dependencies'].items()))
         log.s("Checking the version requirement solvability of dependencies")
-        self.match = ""
+        self.highest_version = ""
         self.pkg_error = False
         self.version_error = False
 
@@ -26,12 +26,18 @@ class VersionReqsResolvabilityCheck(base.CheckWithManifest):
         resp = requests.get(f'https://{repository}.raven-os.org/api/p/{category}/{name}')
         if resp.ok:
             content = json.loads(resp.content)
-            self.match = semver.max_satisfying(
+            match = semver.max_satisfying(
                     content['versions'],
                     version_req,
             )
-            self.version_error = self.match is None
-            return not self.version_error
+            if match is None:
+                self.version_error = True
+                self.highest_version = semver.max_satisfying(
+                        content['versions'],
+                        '*',
+                )
+                return False
+            return True
         else:
             self.pkg_error = True
             return False
@@ -40,11 +46,18 @@ class VersionReqsResolvabilityCheck(base.CheckWithManifest):
         full_name, version_req = item
         if self.pkg_error:
             log.e(f"Package wasn't found")
-        else:
-            log.e(f"No match was found for version requirement {version_req}")
+        elif self.version_error:
+            log.e(f"No version was found for requirement {version_req}")
 
     def diff(self, item):
-        log.i(f"Dependency would be removed")
+        if self.pkg_error:
+            log.i(f"Dependency would be removed")
+        elif self.version_error:
+            log.i(f"The version would be changed to the highest available: '{self.highest_version}'")
 
     def fix(self, item):
-        del self.pkg.manifest['dependencies'][item[0]]
+        if self.pkg_error:
+            del self.pkg.manifest['dependencies'][item[0]]
+        elif self.version_error:
+            self.pkg.manifest['dependencies'][item[0]] = self.highest_version
+
