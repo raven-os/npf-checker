@@ -32,7 +32,7 @@ class KindCheck(base.CheckWithManifest):
     def edit(self, _):
         if self.pkg.is_effective:
             ans = log.q("Would you like to edit the manifest.toml (1) "
-                        "or to add files to the package (2)?")
+                        "or to add files to the package (2)? ")
             if ans == "1":
                 super().edit(_)
             elif ans == "2":
@@ -41,7 +41,7 @@ class KindCheck(base.CheckWithManifest):
                 log.w("Only recognized answers are 1 and 2")
         else:
             ans = log.q("Would you like to edit the manifest.toml (1) "
-                        "or to remove the files from the package? (2)")
+                        "or to remove the files from the package? (2) ")
             if ans == "1":
                 super().edit(_)
             elif ans == "2":
