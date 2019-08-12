@@ -3,19 +3,21 @@
 import core.args
 import core.package
 import core.log as log
+import core.checks.base as base
 
 
 def main():
     core.args.parse_args()
     args = core.args.get_args()
-    for f in args.npf:
-        pkg = core.package.Package(f)
-        log.s(f"Unwrapping {f}")
-        pkg.unwrap()
-        log.s(f"Checking {f}")
-        pkg.check()
-        log.s(f"Wrapping {f}")
-        pkg.wrap()
+    base.Check.global_state = base.Type.from_string(core.args.get_args().action)
+    f = args.npf
+    pkg = core.package.Package(f)
+    log.s(f"Unwrapping {f}")
+    pkg.unwrap()
+    log.s(f"Checking {f}")
+    pkg.check()
+    log.s(f"Wrapping {f}")
+    pkg.wrap()
 
 
 if __name__ == '__main__':

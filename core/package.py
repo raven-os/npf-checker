@@ -6,6 +6,7 @@ import datetime
 import termcolor
 import core
 import core.log as log
+import core.check
 
 
 class Package:
@@ -30,7 +31,7 @@ class Package:
             os.remove(data)
 
     def check(self):
-        print('TODO: Package.check()')
+        core.check.check_package(self)
 
     def wrap(self):
         self.update_manifest_toml_wrap_date()
@@ -53,7 +54,7 @@ class Package:
             with log.push():
                 for root, _, filenames in os.walk('.'):
                     for name in filenames:
-                        log.s(os.path.join(root, name))
+                        log.s(_colored_path(os.path.join(root, name)))
                         files_count += 1
             log.s(f"(That's {files_count} files.)")
             log.s(f"Creating data.tar.gz")
@@ -82,7 +83,7 @@ class Package:
         with log.push():
             log.s(f"name: {m['name']}")
             log.s(f"category: {m['category']}")
-            log.s(f"version: {'version'}")
+            log.s(f"version: {m['version']}")
             log.s(f"description: {metadata['description']}")
             log.s(f"tags: {', '.join(metadata['tags'])}")
             log.s(f"maintainer: {metadata['maintainer']}")
