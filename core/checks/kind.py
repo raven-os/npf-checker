@@ -7,7 +7,10 @@ import core.checks.utils as utils
 class KindCheck(base.CheckWithManifest):
     def __init__(self, pkg):
         super().__init__(pkg, [None])
+
+    def run(self):
         log.s("Checking package kind")
+        super().run()
 
     def validate(self, _):
         length = len(os.listdir(self.pkg.cache))
@@ -28,6 +31,7 @@ class KindCheck(base.CheckWithManifest):
         target = 'virtual' if self.pkg.is_effective else 'effective'
         self.pkg.manifest['kind'] = target
         self.pkg.is_effective = not self.pkg.is_effective
+        self.write_pkg_manifest()
 
     def edit(self, _):
         if self.pkg.is_effective:
