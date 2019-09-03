@@ -43,7 +43,7 @@ class Check():
                             log.i("The automatic changes would be as follows")
                             with log.push():
                                 if self.diff(item) is not False:
-                                    answer = utils.ask_yne("Accept those changes? ")
+                                    answer = utils.ask_yne("Accept those changes?")
                                     if answer is utils.Answer.YES:
                                         self.fix(item)
                                     elif answer == utils.Answer.EDIT:
