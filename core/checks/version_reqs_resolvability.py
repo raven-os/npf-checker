@@ -1,20 +1,20 @@
-import os
 import json
 import requests
 import semver
-import core
 import core.log as log
 import core.checks.base as base
-import core.checks.utils as utils
 
 
 class VersionReqsResolvabilityCheck(base.CheckWithManifest):
     def __init__(self, pkg):
         super().__init__(pkg, list(pkg.manifest['dependencies'].items()))
-        log.s("Checking the version requirement solvability of dependencies")
         self.highest_version = ""
         self.pkg_error = False
         self.version_error = False
+
+    def run(self):
+        log.s("Checking the version requirement solvability of dependencies")
+        super().run()
 
     def validate(self, item):
         self.pkg_error = False
