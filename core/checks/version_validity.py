@@ -5,8 +5,7 @@ import semver
 
 class VersionValidityCheck(base.CheckWithManifest):
     def __init__(self, pkg):
-        super().__init__(pkg, None)  # items is provided on the next line
-        self.items = [pkg.manifest['version']]
+        super().__init__(pkg, [pkg.manifest['version']])
 
     def validate(self, version):
         try:
