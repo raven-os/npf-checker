@@ -5,7 +5,6 @@ import core.checks.base as base
 class DescriptionCheck(base.CheckWithManifest):
     def __init__(self, pkg):
         super().__init__(pkg, None)  # items is provided on the next line
-        log.s("Checking package description")
         self.items = [pkg.manifest['metadata']['description']]
         self.capital = False
         self.full_stop = False
