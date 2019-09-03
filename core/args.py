@@ -30,6 +30,7 @@ def parse_args():
         '--action',
         choices=['edit', 'fix', 'diff'],
         default='edit',
+        help="Action to be used, 'edit' prompts the user the possible changes, 'fix' automatically applies all of them, and 'diff' only shows what would be automatically done"
     )
     _parser.add_argument(
         '--visual',
