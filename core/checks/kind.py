@@ -36,7 +36,7 @@ class KindCheck(base.CheckWithManifest):
     def edit(self, _):
         if self.pkg.is_effective:
             ans = self._ask_1or2("Would you like to edit the manifest.toml (1) "
-                                  "or to add files to the package (2)? ")
+                                 "or to add files to the package (2)? ")
             if ans == 1:
                 super().edit(_)
             elif ans == 2:
