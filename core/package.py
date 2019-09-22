@@ -77,7 +77,7 @@ class Package:
                 os.remove('data.tar.gz')
         new_path = f'{self.npf_path}.new'
         os.rename(os.path.join(self.cache, new_nest_file_path), new_path)
-        log.s(f"New nest file is located at {new_path}")
+        log.s(f"New NPF is located at {new_path}")
 
     def show_manifest(self):
         m = self.manifest
