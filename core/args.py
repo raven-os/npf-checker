@@ -2,7 +2,7 @@ import argparse
 import os
 import sys
 
-global _args
+global _argst
 global _parser
 
 
