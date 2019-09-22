@@ -47,8 +47,6 @@ class KindCheck(base.CheckWithManifest):
                                  "or to remove the files from the package? (2) ")
             if ans == 1:
                 super().edit(_)
-            # elif ans == 2:
-            #     pass  # The rewrap at the end will ignore the files if the kind is virtual
 
     @staticmethod
     def _ask_1or2(question):
