@@ -76,6 +76,7 @@ class CheckWithManifest(Check):
     def edit(self, item):
         utils.open_editor(self.pkg.manifest_path)
         self.pkg.manifest = toml.load(self.pkg.manifest_path)
+        self.pkg.is_effective = self.pkg.manifest['kind'] == 'effective'
 
     def write_pkg_manifest(self):
         with open(self.pkg.manifest_path, 'w') as filename:
