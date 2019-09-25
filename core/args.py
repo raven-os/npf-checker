@@ -37,6 +37,15 @@ def parse_args():
         action='store_true',
         help="Try to use more visual tools (only makes sense with --action=edit, which is the default)"
     )
+    _parser.add_argument(
+        '--config',
+        default=os.path.join(
+            os.getcwd(),
+            os.path.dirname(sys.argv[0]),
+            'Config.toml',
+        ),
+        help="The location of the configuration file. Default: Config.toml",
+    )
     _args = _parser.parse_args()
 
 
