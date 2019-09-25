@@ -44,6 +44,7 @@ def parse_args():
             os.path.dirname(sys.argv[0]),
             'Config.toml',
         ),
+        help="The location of the configuration file. Default: Config.toml",
     )
     _args = _parser.parse_args()
 
